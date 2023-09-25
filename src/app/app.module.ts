@@ -8,11 +8,13 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { CreateTeamComponent } from './create-team/create-team.component';
+import { TileMenuComponent } from './tile-menu/tile-menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CreateTeamComponent
+    CreateTeamComponent,
+    TileMenuComponent
   ],
   imports: [
     BrowserModule,

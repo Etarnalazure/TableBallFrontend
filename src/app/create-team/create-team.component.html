@@ -1,6 +1,11 @@
+Team name:
 <input type="text" [(ngModel)]="TeamName" placeholder="Enter text" />
 <br>
 Player One:
 <select [(ngModel)]="PlayerOne">
+    <option *ngFor="let item of players" [value]="item.uniquePlayerGuid">{{ item.playerName }}</option>
+</select>
+Player Two:
+<select [(ngModel)]="PlayerTwo">
     <option *ngFor="let item of players" [value]="item.uniquePlayerGuid">{{ item.playerName }}</option>
 </select>

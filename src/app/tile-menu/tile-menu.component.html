@@ -1,0 +1,33 @@
+<div class="tile-menu">
+    <!-- Tile 1 -->
+    <div
+      class="tile"
+      [ngClass]="{'active': selectedTile === 0, 'move-left': selectedTile === 1 || selectedTile === 2 }"
+      (click)="tileClicked(0)"
+    >
+      <img src="../../assets/Background/PlayerCreate.png" alt="Overlay Image" class="overlay-image" *ngIf="selectedTile !== 0" />
+        Create Player
+    </div>
+  
+    <!-- Tile 2 -->
+    <div
+    class="tile"
+    [ngClass]="{'active': selectedTile === 1, 'move-right': selectedTile === 0, 'move-left': selectedTile === 2 }"
+    (click)="tileClicked(1)"
+  >
+      <img src="../../assets/Background/BattleOn.png" alt="Overlay Image" class="overlay-image" *ngIf="selectedTile !== 1" />
+      Battle!
+      
+    </div>
+  
+    <!-- Tile 3 -->
+    <div
+    class="tile"
+    [ngClass]="{'active': selectedTile === 2, 'move-right': selectedTile === 0 || selectedTile === 1 }"
+    (click)="tileClicked(2)"
+  >
+    <img src="../../assets/Background/TeamCreation.png" alt="Overlay Image" class="overlay-image" *ngIf="selectedTile !== 2" />
+    <app-create-team></app-create-team>
+  </div>
+  </div>
+  
