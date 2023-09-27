@@ -1,11 +1,29 @@
 Team name:
-<input type="text" [(ngModel)]="TeamName" placeholder="Enter text" />
-<br>
-Player One:
-<select [(ngModel)]="PlayerOne">
-    <option *ngFor="let item of players" [value]="item.uniquePlayerGuid">{{ item.playerName }}</option>
+<input type="text" [(ngModel)]="teamName" placeholder="Enter text" />
+<br><br>
+Player One
+<select [(ngModel)]="playerOne">
+    <option *ngFor="let item of players" [value]="item.uniquePlayerGuid" [attr.disabled]="isOptionDisabled('playerOne', item.uniquePlayerGuid) ? true : null">{{ item.playerName }}</option>
 </select>
-Player Two:
-<select [(ngModel)]="PlayerTwo">
-    <option *ngFor="let item of players" [value]="item.uniquePlayerGuid">{{ item.playerName }}</option>
+<br><br>
+Player Two
+<select [(ngModel)]="playerTwo">
+    <option *ngFor="let item of players" [value]="item.uniquePlayerGuid" [attr.disabled]="isOptionDisabled('playerTwo', item.uniquePlayerGuid) ? true : null">{{ item.playerName }}</option>
 </select>
+<br><br>
+
+<form (ngSubmit)="onSubmit()">
+ 
+    <button type="submit">Save new team</button>
+  </form>
+
+  <br/><br>
+  Delete Team:<br>
+<select [(ngModel)]="teamGuid">
+    <option *ngFor="let item of teams" [value]="item.uniqueTeamGuid">{{ item.teamName }}</option>
+ </select>
+  <form (ngSubmit)="onDeleteSubmit()">
+   
+    <button type="submit">Delete Team</button>
+</form>
+{{Response}}

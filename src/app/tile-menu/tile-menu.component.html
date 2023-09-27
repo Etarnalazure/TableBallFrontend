@@ -6,7 +6,8 @@
       (click)="tileClicked(0)"
     >
       <img src="../../assets/Background/PlayerCreate.png" alt="Overlay Image" class="overlay-image" *ngIf="selectedTile !== 0" />
-        Create Player
+      <p *ngIf="selectedTile !== 0" class="outline-text">Create Player!</p>
+      <app-create-player></app-create-player>
     </div>
   
     <!-- Tile 2 -->
@@ -16,8 +17,9 @@
     (click)="tileClicked(1)"
   >
       <img src="../../assets/Background/BattleOn.png" alt="Overlay Image" class="overlay-image" *ngIf="selectedTile !== 1" />
-      Battle!
       
+      <p *ngIf="selectedTile !== 1" class="outline-text">Battle!</p>
+      <app-create-battle></app-create-battle>
     </div>
   
     <!-- Tile 3 -->
@@ -25,9 +27,12 @@
     class="tile"
     [ngClass]="{'active': selectedTile === 2, 'move-right': selectedTile === 0 || selectedTile === 1 }"
     (click)="tileClicked(2)"
-  >
+    >
     <img src="../../assets/Background/TeamCreation.png" alt="Overlay Image" class="overlay-image" *ngIf="selectedTile !== 2" />
-    <app-create-team></app-create-team>
+    <p *ngIf="selectedTile !== 2" class="outline-text">Create team!</p>
+    <div *ngIf="selectedTile === 2">
+      <app-create-team></app-create-team>
+    </div>
   </div>
   </div>
   

@@ -9,12 +9,18 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { CreateTeamComponent } from './create-team/create-team.component';
 import { TileMenuComponent } from './tile-menu/tile-menu.component';
+import { HighScoreComponent } from './high-score/high-score.component';
+import { CreatePlayerComponent } from './create-player/create-player.component';
+import { CreateBattleComponent } from './create-battle/create-battle.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateTeamComponent,
-    TileMenuComponent
+    TileMenuComponent,
+    HighScoreComponent,
+    CreatePlayerComponent,
+    CreateBattleComponent
   ],
   imports: [
     BrowserModule,
