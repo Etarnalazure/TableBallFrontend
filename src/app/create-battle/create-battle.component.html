@@ -1,1 +1,15 @@
-<p>create-battle works!</p>
+<p>Battle!</p>
+
+Select the teams:<br>
+<select [(ngModel)]="teamOneGuid">
+    <option *ngFor="let item of teams" [value]="item.uniqueTeamGuid" [attr.disabled]="isOptionDisabled('teamOneGuid', item.uniqueTeamGuid) ? true : null">{{ item.teamName }}</option>
+ </select>
+ <select [(ngModel)]="teamTwoGuid">
+    <option *ngFor="let item of teams" [value]="item.uniqueTeamGuid" [attr.disabled]="isOptionDisabled('teamTwoGuid', item.uniqueTeamGuid) ? true : null">{{ item.teamName }}</option>
+ </select>
+
+ <br><br>
+ <button type="submit" (click)="BattleTime()">Start battle!</button><br/><br/><br/><br/>
+ <div class="winner-text pulsate">
+   {{winner}}
+ </div>

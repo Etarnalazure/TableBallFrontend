@@ -77,7 +77,7 @@ export class ApiService {
   }
 
   deleteTeam(teamGuid:string): Observable<any[]> {
-    const endpoint = `${this.apiUrl}players/Delete/`;
+    const endpoint = `${this.apiUrl}team/Delete/`;
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Accept': '*/*'

@@ -43,13 +43,26 @@ export class CreateTeamComponent implements OnInit {
 
   onSubmit() {
     console.log(this.teamName, this.playerOne, this.playerTwo);
-    this.apiService.createTeam(this.teamName, this.playerOne, this.playerTwo);
+    this.apiService.createTeam(this.teamName, this.playerOne, this.playerTwo).subscribe(
+      response => {
+        console.log('Data received:', response);
+      });
     this.Response = "Team created successfully:";
   }
 
   onDeleteSubmit() {
     console.log("TeamGuid", this.teamGuid);
-    this.apiService.deleteTeam(this.teamGuid);
+    this.apiService.deleteTeam(this.teamGuid).subscribe(
+      response => {
+        console.log('Data received:', response);
+      });
+    const indexToRemove = this.teams.findIndex(team => team.uniqueTeamGuid === this.teamGuid);
+
+    // Check if the player was found in the array
+    if (indexToRemove !== -1) {
+      // Remove the player from the array
+      this.teams.splice(indexToRemove, 1);
+    };
     this.Response = "Team deleted successfully:";
     
   }

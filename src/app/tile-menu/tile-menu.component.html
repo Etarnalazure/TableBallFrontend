@@ -7,7 +7,7 @@
     >
       <img src="../../assets/Background/PlayerCreate.png" alt="Overlay Image" class="overlay-image" *ngIf="selectedTile !== 0" />
       <p *ngIf="selectedTile !== 0" class="outline-text">Create Player!</p>
-      <app-create-player></app-create-player>
+      <div *ngIf="selectedTile === 0"><app-create-player></app-create-player></div>
     </div>
   
     <!-- Tile 2 -->
@@ -19,7 +19,7 @@
       <img src="../../assets/Background/BattleOn.png" alt="Overlay Image" class="overlay-image" *ngIf="selectedTile !== 1" />
       
       <p *ngIf="selectedTile !== 1" class="outline-text">Battle!</p>
-      <app-create-battle></app-create-battle>
+      <div *ngIf="selectedTile === 1"><app-create-battle></app-create-battle></div>
     </div>
   
     <!-- Tile 3 -->
