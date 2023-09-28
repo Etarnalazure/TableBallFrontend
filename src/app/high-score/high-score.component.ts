@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../API/api.service';
+import { DataManagementService } from '../API/data-management.service';
 
 @Component({
   selector: 'app-high-score',
@@ -8,12 +9,17 @@ import { ApiService } from '../API/api.service';
 })
 export class HighScoreComponent {
   highScore: any[] = [];
-  constructor(private apiService: ApiService) { }
+
+  constructor(private apiService: ApiService, private dataManagementService: DataManagementService) { }
+
   ngOnInit() {
     this.apiService.getHighScore()
       .subscribe((response) => {
         this.highScore = response;
       });
-      console.log("Htest ", this.highScore);
+  }
+  refreshHighscore() {
+    this.dataManagementService.refreshHighscore();
+    console.log("highScore", this.highScore);
   }
 }

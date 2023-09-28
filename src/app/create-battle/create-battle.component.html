@@ -13,7 +13,16 @@ Select the teams:<br>
  <div class="winner-text pulsate">
    {{winner}}
  </div>
+ <div>
+   Rig battle:<br>
+   Choose your winner!<br>
+   <select [(ngModel)]="winnerGuid">
+      <option *ngFor="let item of teams" [value]="item.uniqueTeamGuid">{{ item.teamName }}</option>
+   </select><br>
+   <button type="submit" (click)="RigBattle()">Start (rigged) battle!</button><br/><br/><br/><br/>
+   
+   </div>
  <div >
    <p>Previous battles</p>
-   <p *ngFor="let value of teamBattles">{{ value.team1Name }} Vs. {{ value.team2Name }} <br>{{value.battleDate}} </p>
+   <p *ngFor="let value of teamBattles">{{ value.team1Name }} Vs. {{ value.team2Name }}<br>{{ value.battleWinner }}  <br>{{value.battleDate}} </p>
  </div>

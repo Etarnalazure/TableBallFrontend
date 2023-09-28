@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../API/api.service';
+import { DataManagementService } from '../API/data-management.service';
 
 @Component({
   selector: 'app-create-battle',
@@ -19,7 +20,7 @@ export class CreateBattleComponent {
  
   teamBattles: any[] = [];
   
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private dataManagementService: DataManagementService) { }
   ngOnInit() {
     this.GetEntries();
       
@@ -31,6 +32,7 @@ export class CreateBattleComponent {
     .subscribe((response) => {
       this.teams = response;
     });
+
     this.apiService.getBattles()
     .subscribe((response) => {
       this.previousBattles = response;
@@ -39,7 +41,7 @@ export class CreateBattleComponent {
 
   }
 
-  private processBattles() {
+  private async processBattles() {
     // Check if both teams and battles are available
     if (this.teams && this.previousBattles) {
       // Process battles and populate teamBattles array
@@ -47,25 +49,36 @@ export class CreateBattleComponent {
         
         const team1 = this.teams.find(team => team.uniqueTeamGuid === battle.teamOneGuid);
         const team2 = this.teams.find(team => team.uniqueTeamGuid === battle.teamTwoGuid);
+        const battleWinner = this.teams.find(team => team.uniqueTeamGuid === battle.winnerGuid);
         const battleDate = battle.battleDate;
-        console.log("team1", team1);
-        console.log("team2", team2);
+
         return {
           team1Name: team1 ? team1.teamName : 'Unknown Team',
           team2Name: team2 ? team2.teamName : 'Unknown Team',
-          battleDate: battleDate
+          battleDate: battleDate,
+          battleWinner: battleWinner ? battleWinner.teamName : 'Unknown Team'
         };
       });
-  
-      console.log("Battles", this.teamBattles);
+      //Sort by date
+      this.teamBattles.sort((a, b) => {
+        const dateA = new Date(a.battleDate);
+        const dateB = new Date(b.battleDate);
+      
+        return dateB.getTime() - dateA.getTime(); // Descending order
+      });
     }
   }
-
+  //Not sure why the solution made for the team component didnt work here
+  //TODO: Research later.
   isOptionDisabled(teamName: string, uniqueTeamGuid: string): boolean {
-    if ((teamName === 'teamOneGuid' && this.teamOneGuid === uniqueTeamGuid) ||
-        (teamName === 'teamTwoGuid' && this.teamTwoGuid === uniqueTeamGuid)) {
+    if (teamName === 'teamOneGuid' && this.teamTwoGuid === uniqueTeamGuid) {
       return true; // Disable the option
     }
+  
+    if (teamName === 'teamTwoGuid' && this.teamOneGuid === uniqueTeamGuid) {
+      return true; // Disable the option
+    }
+  
     return false; // Enable the option
   }
 
@@ -78,7 +91,17 @@ export class CreateBattleComponent {
     this.apiService.createBattle(this.teamOneGuid, this.teamTwoGuid,this.winnerGuid).subscribe(
       response => {
         console.log('Data received:', response);
+        
       });
+      this.dataManagementService.refreshHighscore();
+  }
+  RigBattle()
+  {
+    this.apiService.createBattle(this.teamOneGuid, this.teamTwoGuid,this.winnerGuid).subscribe(
+      response => {
+        console.log('Data received:', response);
+      });
+      this.dataManagementService.refreshHighscore();
   }
 
   getRandomWinner(TeamOne: any, TeamTwo: any): any {

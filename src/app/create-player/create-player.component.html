@@ -8,7 +8,9 @@ Player name:
 <input type="text" [(ngModel)]="playerName" placeholder="Enter text" /><br/>
 Player initials:
 <input type="text" [(ngModel)]="playerInitials" placeholder="Enter text" /><br>
+Handicap: {{playerHandicap}}
 <br>
+
 <form (ngSubmit)="onCreateSubmit()">
     <button type="submit" style="width:150px;">Save new player</button>
 </form>
@@ -21,3 +23,10 @@ Player initials:
     <button type="submit" style="width:150px;">Delete player</button>
 </form>
 {{Response}}
+
+<br><br>
+Find Player:
+<br>
+<input type="text" [(ngModel)]="searchTerm" (keyup)="onSearch()" placeholder="Search...">
+<p>Player Name - Initials</p>
+<p *ngFor="let player of filteredPlayers">{{player.playerName}} - {{player.playerInitials}} - {{player.handicap}}</p>

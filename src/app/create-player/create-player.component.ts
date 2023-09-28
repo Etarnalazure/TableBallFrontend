@@ -12,6 +12,8 @@ export class CreatePlayerComponent {
   playerInitials:string = '';
   playerGuid:string = '';
   Response: any = '';
+
+  playerHandicap:number = 10;
   constructor(private apiService: ApiService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
@@ -40,6 +42,7 @@ export class CreatePlayerComponent {
         console.log('Data received:', response);
         this.playerName =response.playerName;
         this.playerInitials = response.playerInitials;
+        this.playerHandicap = response.handicap;
       });
     
   }
@@ -51,6 +54,7 @@ export class CreatePlayerComponent {
       });
     this.Response = "Player created successfully:";
   }
+
   onChangeSubmit() {
     this.apiService.updatePlayer(this.playerGuid,this.playerName, this.playerInitials).subscribe(
       response => {
@@ -59,6 +63,7 @@ export class CreatePlayerComponent {
     this.Response = "Player edited successfully:";
     this.GetEntries();
   }
+
   onDeleteSubmit() {
     console.log("PlayerGuid", this.playerGuid);
     this.apiService.deletePlayer(this.playerGuid).subscribe(
@@ -74,5 +79,13 @@ export class CreatePlayerComponent {
       this.players.splice(indexToRemove, 1);
     }
     
+  }
+  searchTerm:string = '';
+  filteredPlayers: any[] = [];
+  onSearch(){
+    this.apiService.searchForPlayer(this.searchTerm).subscribe(
+      response => {
+        this.filteredPlayers = response;
+      });
   }
 }
