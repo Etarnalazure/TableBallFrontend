@@ -14,10 +14,17 @@ export class ApiService {
     const endpoint = `${this.apiUrl}players/GetPlayers`;
     return this.http.get<any[]>(endpoint);
   }
+
   getPlayerById(playerGuid:string): Observable<any> {
     const endpoint = `${this.apiUrl}players/`+playerGuid;
     return this.http.get<any>(endpoint);
   }
+
+  searchForPlayer(term:string): Observable<any> {
+    const endpoint = `${this.apiUrl}players/Search/`+term;
+    return this.http.get<any>(endpoint);
+  }
+
   createPlayer(playerName:string, playerInitials:string): Observable<any[]> {
     const endpoint = `${this.apiUrl}players/CreatePlayer`;
 
@@ -94,6 +101,27 @@ export class ApiService {
       'Accept': '*/*'
     });
     return this.http.delete<any[]>(endpoint+playerGuid,{headers});
+  }
+
+  createBattle(teamOneGuid:string, teamTwoGuid:string, winnerGuid:string): Observable<any[]> {
+    const endpoint = `${this.apiUrl}battles/CreateBattle`;
+    console.log(teamOneGuid, teamTwoGuid, winnerGuid)
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Accept': '*/*'
+    });
+    return this.http.post<any[]>(
+      endpoint,
+      {
+        "teamOneGuid": teamOneGuid,
+        "teamTwoGuid": teamTwoGuid,
+        "winnerGuid": winnerGuid
+      },{headers});
+  }
+  getBattles(): Observable<any[]> {
+    const endpoint = `${this.apiUrl}battles/GetBattles`;
+    console.log("endpoint", endpoint);
+    return this.http.get<any[]>(endpoint);
   }
   
 }

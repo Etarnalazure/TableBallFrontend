@@ -13,3 +13,7 @@ Select the teams:<br>
  <div class="winner-text pulsate">
    {{winner}}
  </div>
+ <div >
+   <p>Previous battles</p>
+   <p *ngFor="let value of teamBattles">{{ value.team1Name }} Vs. {{ value.team2Name }} <br>{{value.battleDate}} </p>
+ </div>
